@@ -1,0 +1,16 @@
+//数字（整数、小数、科学计数法）
+int main(){
+int a     =       5; //整数
+double b; 
+b = 1.0 * a; //浮点数
+//科学计数法
+int c = 5e8;
+double d = 5.0e-8;
+e = 12.3Ea; //Error
+/*error*/
+h= 1..; //Error
+h = 123.; //Error
+}
+
+
+
