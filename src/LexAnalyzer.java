@@ -174,7 +174,8 @@ public class LexAnalyzer {
     public String bufToStr(StringBuffer s){return String.valueOf(s);}
     public String tokenToStr(List<tokenPair> tokenList){
         StringBuilder temp = new StringBuilder();
-        temp.append("值为-1代表种别码就是值\n");
+        temp.append("单词的值为-1代表种别码就是值（运算符、界符、关键字）\n");
+        temp.append("单词的值为-2代表单词本身就是单词的值（数值常量）\n");
         temp.append("单词   种别码   单词的值   大类\n");
         for (tokenPair token : tokenList) {
             temp.append("<").append(token.value).append("       ").append(token.id).append("       ").append(token.innerValue).append("       ").append(token.type).append(">").append("\n");
@@ -249,11 +250,11 @@ public class LexAnalyzer {
                         currentState = 4;
                         token.append(ch);
                     }else{
-                        if(!digitMap.containsKey(token.toString())){
-                            digitIndex++;
-                            digitMap.put(token.toString(),digitIndex);
-                        }
-                        storeToken(token,digitType, digitMap.getFromKey(token.toString()));
+//                        if(!digitMap.containsKey(token.toString())){
+//                            digitIndex++;
+//                            digitMap.put(token.toString(),digitIndex);
+//                        }
+                        storeToken(token,digitType, -2);
                         chIndex--;
                         currentState = 0;
                     }
@@ -275,11 +276,11 @@ public class LexAnalyzer {
                         currentState = 4;
                         token.append(ch);
                     }else {
-                        if(!digitMap.containsKey(token.toString())){
-                            digitIndex++;
-                            digitMap.put(token.toString(),digitIndex);
-                        }
-                        storeToken(token,digitType, digitMap.getFromKey(token.toString()));
+//                        if(!digitMap.containsKey(token.toString())){
+//                            digitIndex++;
+//                            digitMap.put(token.toString(),digitIndex);
+//                        }
+                        storeToken(token,digitType, -2);
                         chIndex--;
                         currentState = 0;
                     }
@@ -310,11 +311,11 @@ public class LexAnalyzer {
                         currentState = 6;
                         token.append(ch);
                     }else {
-                        if(!digitMap.containsKey(token.toString())){
-                            digitIndex++;
-                            digitMap.put(token.toString(),digitIndex);
-                        }
-                        storeToken(token,digitType, digitMap.getFromKey(token.toString()));
+//                        if(!digitMap.containsKey(token.toString())){
+//                            digitIndex++;
+//                            digitMap.put(token.toString(),digitIndex);
+//                        }
+                        storeToken(token,digitType, -2);
                         chIndex--;
                         currentState = 0;
                     }
@@ -328,13 +329,13 @@ public class LexAnalyzer {
                             digitIndex++;
                             digitMap.put(token.toString(),digitIndex);
                         }
-                        storeToken(token,digitType, digitMap.getFromKey(token.toString()));
+                        storeToken(token,digitType, -2);
                         chIndex--;
                         currentState = 0;
                     }
                     break;
                 case 8:
-                    if(is_(ch) || isDot(ch) || isLetter(ch)){
+                    if(is_(ch) || isDigit(ch) || isLetter(ch)){
                         currentState = 8;
                         token.append(ch);
                     }else {
