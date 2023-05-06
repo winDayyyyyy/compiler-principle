@@ -127,7 +127,14 @@ public class Show {
         start_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LexAnalyzer obj = new LexAnalyzer();
-                res = obj.analyze(content);
+
+                // 词法语法分析入口
+                try {
+                    res = obj.analyze(content);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+
                 JTextArea textArea1 = new JTextArea();
                 JTextArea textArea2 = new JTextArea();
                 //flag可改动，当无错误信息时，flag置为1

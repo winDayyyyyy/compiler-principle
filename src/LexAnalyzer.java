@@ -16,7 +16,7 @@ public class LexAnalyzer {
     public BiDirectionalMap<String,Integer> indentifierMap = new BiDirectionalMap<>();
     public BiDirectionalMap<String,Integer> digitMap = new BiDirectionalMap<>();
     public BiDirectionalMap<String,Integer> strMap = new BiDirectionalMap<>();
-    public String errorMsg = new String();
+    public String errorMsg = "";
 
     public void initMap(){
         symbolMap.put("int", 1);
@@ -193,7 +193,7 @@ public class LexAnalyzer {
     }
 
 
-    public String analyze(String content){
+    public String analyze(String content) throws Exception {
         initMap();
         readFile(content);
         delComment();
@@ -420,6 +420,9 @@ public class LexAnalyzer {
             chIndex++;
         }
 
+        // 语法分析
+        Parser parser = new Parser(tokenList);
+        parser.analyse();
 
         return tokenToStr(tokenList);
     }

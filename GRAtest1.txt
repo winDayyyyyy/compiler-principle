@@ -1,0 +1,8 @@
+S:G
+G:D I ;
+D:int
+D:float
+D:double
+I:IDENTIFIER
+I:IDENTIFIER [ DIGIT ]
+I:IDENTIFIER [ DIGIT ] [ DIGIT ]
